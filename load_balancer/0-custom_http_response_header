@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Installs nginx and adds an X-Served-By header containing the server hostname
+# shellcheck disable=SC2154
+apt-get update -y
+apt-get install -y nginx
+echo "Holberton School for the win!" > /var/www/html/index.html
+ggp_conf="/etc/nginx/sites-available/default"
+if ! grep -q "X-Served-By" "$ggp_conf"
+then
+  sed -i "s|server_name _;|server_name _;\n\tadd_header X-Served-By \$hostname;|" "$ggp_conf"
+fi
+service nginx restart

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Transfers a file from the client to a server's home directory using scp
+if [ "$#" -lt 4 ]
+then
+  echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+  exit 1
+fi
+ggp_file="$1"
+ggp_ip="$2"
+ggp_user="$3"
+ggp_key="$4"
+scp -o StrictHostKeyChecking=no -i "$ggp_key" "$ggp_file" "$ggp_user@$ggp_ip":~/
